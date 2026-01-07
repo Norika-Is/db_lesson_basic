@@ -1,14 +1,10 @@
 -- Q1
 CREATE TABLE departments (
-department_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(20),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);                                                
-
-ALTER TABLE departments
-MODIFY name VARCHAR(20) NOT NULL;
-
-DESC departments;
+  department_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(20) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);                                                
 
 -- Q2
 ALTER TABLE people ADD department_id INT unsigned AFTER email;
@@ -20,8 +16,6 @@ INSERT INTO departments (name) VALUES
 ('経理'),
 ('人事'),
 ('情報システム');
-
-SELECT * FROM departments;
 
 INSERT INTO people (name, email, age, gender, department_id) VALUES
 ('山田太郎', 'yamada_sales1@gizumo.jp',30 , 1, 1),
@@ -35,16 +29,6 @@ INSERT INTO people (name, email, age, gender, department_id) VALUES
 ('加藤ゆみ', 'kato_hr@gizumo.jp', 27, 2 , 4),
 ('吉田哲郎', 'yoshida_it@gizumo.jp', 52, 1, 5);
 
-SELECT * FROM people;
-
-SELECT COUNT(*) AS people_count FROM people;
-
-SELECT d.name AS department, COUNT(p.person_id) AS cnt
-FROM departments d
-LEFT JOIN people p ON p.department_id = d.department_id
-GROUP BY d.department_id, d.name
-ORDER BY d.department_id;
-
 INSERT INTO reports (person_id, content) VALUES
 (7, '本日は既存顧客へ連絡し、状況の確認を行いました。'),                                                                                      
 (8, '新規問い合わせに対応し、サービス内容を説明しました。'),                                                                                      
@@ -57,10 +41,7 @@ INSERT INTO reports (person_id, content) VALUES
 (15, '採用に関する書類を整理し、進捗を確認しました。'),
 (16, '社内システムの動作確認を行い、問題がないか確認しました。');
 
-SELECT * FROM reports;
-
 -- Q4
-SELECT * FROM people;
 SELECT person_id, name
 FROM people
 WHERE department_id IS NULL;
@@ -99,7 +80,7 @@ ORDER BY age;
 SELECT AVG(age) AS average_age 
 FROM people p
 JOIN departments d ON p.department_id = d.department_id
-WHERE (d.name = '開発') OR (p.gender = 2);
+WHERE (d.name = '開発') AND (p.gender = 2);
 
 -- Q10
 SELECT p.name AS '名前', d.name AS '部署名', r.content AS '内容' 
