@@ -42,9 +42,6 @@ INSERT INTO reports (person_id, content) VALUES
 (16, '社内システムの動作確認を行い、問題がないか確認しました。');
 
 -- Q4
-SELECT person_id, name
-FROM people
-WHERE department_id IS NULL;
 UPDATE people
 SET department_id = 1
 WHERE department_id IS NULL;
